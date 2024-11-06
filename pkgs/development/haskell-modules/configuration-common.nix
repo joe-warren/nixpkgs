@@ -3062,4 +3062,9 @@ self: super: {
      '';
   }) super.quickcheck-state-machine;
 
+  # opencascade-hs requires opencascade-occt
+  opencascade-hs = let occt = pkgs.opencascade-occt;
+  in appendConfigureFlag "--extra-include-dirs=${occt}/include/opencascade"
+    (addExtraLibrary occt super.opencascade-hs);
+
 } // import ./configuration-tensorflow.nix {inherit pkgs haskellLib;} self super
